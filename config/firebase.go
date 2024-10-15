@@ -10,15 +10,18 @@ import (
 	"google.golang.org/api/option"
 )
 
+// variable para inicializar Firebase
+var FirebaseApp *firebase.App
+
 /* funct Hello (name string) string */
 /* funct FunctionName (name Parameter Type) Return Type */
-func InitialFirebaseApp() *firebase.App {
+func InitialFirebaseApp() {
 	opt := option.WithCredentialsFile("./firebaseServiceAccount.json") // La ruta de Service Account
 	app, err := firebase.NewApp(context.Background(), nil, opt)        // Esto es Try-Catch
 	if err != nil {
 		log.Fatalf("Error al inicializar Firabase App: %v", err)
 	}
-	return app
+	FirebaseApp = app
 }
 
 func GetAuthClient(app *firebase.App) *auth.Client {
