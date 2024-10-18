@@ -27,7 +27,7 @@ func InitialFirebaseApp() {
 func GetAuthClient(app *firebase.App) *auth.Client {
 	client, err := app.Auth(context.Background())
 	if err != nil {
-		log.Fatalf("Error al obtener el Cliente: %w", err)
+		log.Fatalf("Error al obtener el Cliente: %v", err) // %w wrap error YA no es compartible con Fatalf, solo con tmt.Errorf
 	}
 	return client
 }
