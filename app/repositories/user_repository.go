@@ -4,6 +4,7 @@ import (
 	"backend-go/app/models"
 	"backend-go/config"
 	"context"
+	"log"
 
 	"google.golang.org/api/iterator"
 )
@@ -15,6 +16,7 @@ func (r *UserRepository) CreateUser(user models.Usuario) error {
 	contexto := context.Background()
 	client, err := config.FirebaseApp.Firestore(contexto)
 	if err != nil {
+		log.Fatalf("Error al conectarse con Firebase: %v", err)
 		return err
 	}
 	defer client.Close() // Similar al Await, espera ejecucion de funcion y se cierra
@@ -27,6 +29,7 @@ func (r *UserRepository) GetAllUsers() ([]models.Usuario, error) {
 	ctx := context.Background()
 	client, err := config.FirebaseApp.Firestore(ctx)
 	if err != nil {
+		log.Fatalf("Error al conectarse con Firebase: %v", err)
 		return nil, err
 	}
 
@@ -52,6 +55,7 @@ func (r *UserRepository) GetUserById(id string) (*models.Usuario, error) {
 	contexto := context.Background()
 	client, err := config.FirebaseApp.Firestore(contexto)
 	if err != nil {
+		log.Fatalf("Error al conectarse con Firebase: %v", err)
 		return nil, err
 	}
 
@@ -70,6 +74,7 @@ func (r *UserRepository) GetUserByUsername(username string) (*models.Usuario, er
 	contx := context.Background()
 	client, err := config.FirebaseApp.Firestore(contx)
 	if err != nil {
+		log.Fatalf("Error al conectarse con Firebase: %v", err)
 		return nil, err
 	}
 
@@ -78,9 +83,10 @@ func (r *UserRepository) GetUserByUsername(username string) (*models.Usuario, er
 	doc, err := iter.Next()
 
 	if err == iterator.Done {
-		return nil, err
+		return nil, nil
 	}
 	if err != nil {
+		log.Fatalf("Error al conectarse con Firebase: %v", err)
 		return nil, err
 	}
 
@@ -122,6 +128,7 @@ func (r *UserRepository) UpdateUser(id string, user models.Usuario) error {
 	// Conexion:
 	client, err := config.FirebaseApp.Firestore(ctx)
 	if err != nil {
+		log.Fatalf("Error al conectarse con Firebase: %v", err)
 		return err
 	}
 
@@ -136,6 +143,7 @@ func (r *UserRepository) DeleteUser(id string) error {
 	// Conexion:
 	client, err := config.FirebaseApp.Firestore(ctx)
 	if err != nil {
+		log.Fatalf("Error al conectarse con Firebase: %v", err)
 		return err
 	}
 
