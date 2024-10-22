@@ -4,6 +4,7 @@ import (
 	"backend-go/app/models"
 	"backend-go/app/repositories"
 	"errors"
+	"log"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -63,6 +64,7 @@ func (s *UserService) CreateUser(user models.Usuario) error {
 
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
+		log.Fatalf("Error al Hashear password: %v", err)
 		return err
 	}
 	// Almacenamos ¡password hasheado
