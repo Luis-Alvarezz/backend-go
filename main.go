@@ -19,5 +19,5 @@ func main() {
 	routes.InitiallizeRoutes(router)
 	// router.Use(middleware.AuthMiddleware) // Para indicar las rutas
 	log.Println("Servidor Trabajando en el puerto: 8080 ")
-	log.Fatal(http.ListenAndServe(":8000", router))
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
