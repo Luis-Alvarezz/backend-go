@@ -15,11 +15,11 @@ func InitiallizeRoutes(router *mux.Router) {
 	service := &services.UserService{Repo: repositorie}
 	controller := &controllers.UserController{Service: service}
 
-	router.HandleFunc("/users/", controller.CreateUser).Methods(http.MethodPost)
+	router.HandleFunc("/users", controller.CreateUser).Methods(http.MethodPost)
 	// Lo que va a utilizar . como lo va a utilizar (method)
 
 	// Obtener todos los usuarios
-	router.HandleFunc("/users/", controller.GetAllUsers).Methods(http.MethodGet)
+	router.HandleFunc("/users", controller.GetAllUsers).Methods(http.MethodGet)
 
 	// Obtener usuario por ID
 	router.HandleFunc("/users/{id}", controller.GetUserById).Methods(http.MethodGet)
